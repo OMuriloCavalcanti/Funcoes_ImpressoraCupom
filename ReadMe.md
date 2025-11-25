@@ -162,7 +162,7 @@ Este código é fornecido para fins educacionais e de desenvolvimento.
 ## Suporte
 
 Para questões relacionadas à DLL ou impressoras Elgin, consulte:
-- [Site Oficial Elgin](https://elgin.com.br)
+- [Site Oficial da documentação] (https://elgindevelopercommunity.github.io/modules.html)
 - Documentação da DLL E1_Impressora01
 
 ---
