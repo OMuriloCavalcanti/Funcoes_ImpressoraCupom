@@ -135,6 +135,7 @@ static void configurarConexao(void)
     scanf("%d", &g_parametro); flush_entrada();
 
     printf("Configuracao salva!\n");
+    return 1;
 }
 
 //verifica se esta conectada 
@@ -149,6 +150,7 @@ static void abrirConexao(void)
     if(AbreConexaoImpressora(g_tipo, g_conexao, g_modelo, g_parametro) == 0) {
         g_conectada = 1;
         printf("Impressora conectada com sucesso\n");
+        return 1;
     }
 	else {
         printf("Falha ao abrir conexao\n");
@@ -165,6 +167,7 @@ static void fecharConexao(void)
     FechaConexaoImpressora();
     g_conectada = 0;
     printf("Conexao encerrada\n");
+    return 1;
 }
 
 //imprime um texto no papel usando preto e branco para ficar mais visivel
@@ -174,6 +177,10 @@ static void fecharConexao(void)
 //chama corte
 static void imprimirTexto(void)
 {
+	if (!g_conectada) {
+        printf("Nenhuma conexao ativa\n");
+        return;
+    }
     char texto[255];
     printf("Digite o texto para imprimir: \n");
     fgets(texto, sizeof(texto), stdin);
@@ -181,6 +188,7 @@ static void imprimirTexto(void)
     ImpressaoTexto(texto, 1, 4, 0);
     AvancaPapel(4);
     Corte(1);
+    printf("Texto impresso com sucesso");
 
 }
 
@@ -191,6 +199,10 @@ static void imprimirTexto(void)
 
 static void imprimirQRCode(void)
 {
+	if (!g_conectada) {
+        printf("Nenhuma conexao ativa\n");
+        return;
+    }
     char conteudo[255];
     printf("Conteudo do QRCode: ");
     fgets(conteudo, sizeof(conteudo), stdin);
@@ -198,6 +210,8 @@ static void imprimirQRCode(void)
     ImpressaoQRCode(conteudo, 6, 4);
     AvancaPapel(4);
     Corte(1);
+    printf("QR code impresso com sucesso");
+    return 1;
 }
 
 //imprime um codigo de barras com as informacoes pre-definidas
@@ -205,9 +219,15 @@ static void imprimirQRCode(void)
 //avanca e corta papel
 static void imprimirCodigoBarras(void)
 {
+	if (!g_conectada) {
+        printf("Nenhuma conexao ativa\n");
+        return;
+    }
     ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);
     AvancaPapel(4);
     Corte(1);
+    printf("Código de barras impresso com sucesso");
+    return;
     
 }
 
@@ -215,6 +235,10 @@ static void imprimirCodigoBarras(void)
 //valida se encontrou o arquivo
 static void imprimirXMLSAT(void)
 {
+	if (!g_conectada) {
+        printf("Nenhuma conexao ativa\n");
+        return;
+    }
 	FILE *arq = fopen("XMLSAT.xml", "r");
     if (!arq) {
         printf("Arquivo XMLSAT.xml não encontrado!\n");
@@ -228,12 +252,18 @@ static void imprimirXMLSAT(void)
     ImprimeXMLSAT(xml, 0);
     AvancaPapel(2);
     Corte(1);
+    printf("XML impresso com sucesso");
+    return 1;
 
 }
 
 //usa a chave
 static void imprimirXMLCancelamentoSAT(void)
 {
+	if (!g_conectada) {
+        printf("Nenhuma conexao ativa\n");
+        return;
+    }
 	const char *assinatura =
         "Q5DLkpdRijIRGY6YSSNsTWK1TztHL1vD0V1Jc4spo/CEUqICEb9SFy82ym8EhBRZ"
         "jbh3btsZhF+sjHqEMR159i4agru9x6KsepK/q0E2e5xlU5cv3m1woYfgHyOkWDNc"
@@ -254,25 +284,45 @@ static void imprimirXMLCancelamentoSAT(void)
     ImprimeXMLCancelamentoSAT(xml, assinatura, 0);
     AvancaPapel(2);
     Corte(1);
+       printf("XML de cancelamento impresso com sucesso");
+    return 0;
 
 }
 
 //chama a funcao especifica de abrir gaveta elgin passando os parametros fixos
 static void abrirGavetaElginOpc(void)
 {
+	if (!g_conectada) {
+        printf("Nenhuma conexao ativa\n");
+        return;
+    }
     AbreGavetaElgin(1, 50, 50);
+    printf("Gaveta abrida");
+    return 0;
 }
 
 //chama a funcao padrao de abrir gaveta com os parametros definidos
 static void abrirGavetaOpc(void)
 {
+	if (!g_conectada) {
+        printf("Nenhuma conexao ativa\n");
+        return;
+    }
     AbreGaveta(1, 5, 10);
+    printf("Gaveta abrida");
+    return 0;
 }
 
 //aciona o beep da impressora enviando a quantidade de beeps e o tempo
 static void emitirSinalSonoro(void)
 {
+	if (!g_conectada) {
+        printf("Nenhuma conexao ativa\n");
+        return;
+    }
 	SinalSonoro(4, 50, 5);
+	printf("BIP");
+	return 0;
 }
 
 /* ======================= Funcao principal ======================= */
