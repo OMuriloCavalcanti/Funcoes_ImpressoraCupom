@@ -162,6 +162,14 @@ Este código é fornecido para fins educacionais e de desenvolvimento.
 ## Suporte
 
 Para questões relacionadas à DLL ou impressoras Elgin, consulte:
+
+## Autores
+- Eduardo Marcondes Cassanha Ferreira Peralta
+- Guilherme da Silva Cordeiro
+- Julia Viegas dos Santos
+- Murilo Cavalcanti dos Santos
+- Murilo Pysklewitz Fuzikawa
+
 - [Site Oficial da documentação] (https://elgindevelopercommunity.github.io/modules.html)
 - Documentação da DLL E1_Impressora01
 
